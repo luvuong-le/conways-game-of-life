@@ -11,6 +11,6 @@ export default class Game {
     }
 
     startGame() {
-        this.grid.renderBoard();
+        this.grid.beginGenerations();
     }
 }
