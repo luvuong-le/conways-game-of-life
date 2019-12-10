@@ -1,4 +1,5 @@
 import Cell from './Cell';
+import randomColor from 'randomcolor';
 
 export default class Grid {
 
@@ -46,7 +47,7 @@ export default class Grid {
         this._gridColSize = renderingContext.canvas.width / this._gridCellSize;
         this._gridRowSize = renderingContext.canvas.height / this._gridCellSize;
 
-        this._grid = new Array(this.columns).fill(null).map(_ => new Array(this.rows).fill(null).map(_ => new Cell()));
+        this._grid = new Array(this.columns).fill(null).map(_ => new Array(this.rows).fill(null).map(_ => new Cell(randomColor())));
     }
     /**
      * @description Get the surrounding neighbours of the current cell
@@ -96,7 +97,6 @@ export default class Grid {
         // Deep Copy Object Cells
         let newGeneration: Cell[][] = this.grid.map(grid => grid.map(cell => JSON.parse(JSON.stringify(cell))));
 
-
         // Alter the new generation
         for (let col = 0; col < this.columns; col++) {
             for (let row = 0; row < this.rows; row++) {
@@ -112,6 +112,9 @@ export default class Grid {
                 } else {
                     newGeneration[col][row].cellState = currentCell.cellState;
                 }
+
+                // Alter other properties
+                newGeneration[col][row].cellColor = currentCell.cellColor;
             }
         }
 
@@ -127,7 +130,7 @@ export default class Grid {
                 // Draw Board
                 this.renderingContext.beginPath();
                 this.renderingContext.rect(col * this.cellSize, row * this.cellSize, this.cellSize, this.cellSize);
-                this.renderingContext.fillStyle = this.grid[col][row].cellState ? "#000000" : "#ffffff"
+                this.renderingContext.fillStyle = this.grid[col][row].cellState ? (this.grid[col][row].cellColor ? this.grid[col][row].cellColor : "#000000") : "#ffffff"
                 this.renderingContext.fill();
                 this.renderingContext.stroke();
                 this.renderingContext.closePath();

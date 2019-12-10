@@ -14,5 +14,8 @@
     "parcel-bundler": "^1.12.4",
     "sass": "^1.23.7",
     "typescript": "^3.7.3"
+  },
+  "dependencies": {
+    "randomcolor": "^0.5.4"
   }
 }

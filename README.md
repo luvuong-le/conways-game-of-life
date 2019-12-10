@@ -54,7 +54,7 @@ The game should now be running at [localhost:1234](http://localhost:1234/)
 - ✔️ Object Oriented
 - ✖️ Different Board Style Themes
 - ✖️ Implement Iteration Count
-- ✖️ Implement Cell Colours
+- ✔️ Implement Cell Colours
 - ✖️ Implement Cell Colours based on generations lived
 - ✖️ Create timer for the game of life
 - ❓ Add grid neighbour wrap around check
