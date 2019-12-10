@@ -8,31 +8,31 @@ export default class Grid {
     private _renderingContext: CanvasRenderingContext2D;
 
     // Multidimensional Array Board => [cols][rows] / [y][x]
-    private _grid: number[][];
+    private _grid: Cell[][];
 
     // Accessors
-    get grid(): number[][] {
+    public get grid(): Cell[][] {
         return this._grid;
     }
 
-    get columns(): number {
+    public get columns(): number {
         return this._gridColSize;
     }
 
-    get rows(): number {
+    public get rows(): number {
         return this._gridRowSize;
     }
 
-    get cellSize(): number {
+    public get cellSize(): number {
         return this._gridCellSize;
     }
 
-    get renderingContext(): CanvasRenderingContext2D {
+    public get renderingContext(): CanvasRenderingContext2D {
         return this._renderingContext;
     }
 
     // Mutators
-    set grid(newBoard: number[][]) {
+    public set grid(newBoard: Cell[][]) {
         this._grid = newBoard;
     }
 
@@ -46,7 +46,7 @@ export default class Grid {
         this._gridColSize = renderingContext.canvas.width / this._gridCellSize;
         this._gridRowSize = renderingContext.canvas.height / this._gridCellSize;
 
-        this._grid = new Array(this.columns).fill(null).map(_ => new Array(this.rows).fill(null).map(_ => Math.floor(Math.random() * 2)));
+        this._grid = new Array(this.columns).fill(null).map(_ => new Array(this.rows).fill(null).map(_ => new Cell()));
     }
     /**
      * @description Get the surrounding neighbours of the current cell
@@ -69,7 +69,7 @@ export default class Grid {
                 // Ignore edges
                 if (colToCheck >= 0 && rowToCheck >= 0 && colToCheck < this.columns && rowToCheck < this.rows) {
                     const neighbour = this.grid[colToCheck][rowToCheck];
-                    neighbourCount += neighbour;
+                    neighbourCount += neighbour.cellState;
                 }
             }
         }
@@ -80,22 +80,37 @@ export default class Grid {
     /**
      * @description Creates the next generation
      */
-    generateNextGen = (): number[][] => {
+    generateNextGen = (): Cell[][] => {
         // Placeholder copy for current generation instead of modifying directly
-        const newGeneration: number[][] = this.grid.map(grid => grid.slice());
+
+        // If using custom cell class you need to remove the object reference (ie. Create new cell class for each or use primitive numbers for comparsion)
+        // If not numbers are primitive and are fine copying normally
+        // We need a temp board and current generation grid to compare against
+
+        // If not using custom cell class
+        // let newGeneration: Cell[][] = this.grid.map(grid => [...grid]);
+
+        // Shallow Copy
+        // let newGeneration: Cell[][] = this.grid.map(grid => grid.map(cell => Object.assign({}, cell)));
+
+        // Deep Copy Object Cells
+        let newGeneration: Cell[][] = this.grid.map(grid => grid.map(cell => JSON.parse(JSON.stringify(cell))));
+
 
         // Alter the new generation
         for (let col = 0; col < this.columns; col++) {
             for (let row = 0; row < this.rows; row++) {
+                // If the grid where the currentCell is used for checking is modified, the game will behave strangely
+                // This is because the board is being modified directly and the next check is checking for the updated cell
                 const currentCell = this.grid[col][row];
                 const neighbourCount = this.getNeighbours(col, row);
 
-                if (currentCell === 0 && neighbourCount === 3) {
-                    newGeneration[col][row] = 1;
-                } else if (currentCell === 1 && (neighbourCount < 2 || neighbourCount > 3)) {
-                    newGeneration[col][row] = 0;
+                if (currentCell.cellState === 0 && neighbourCount === 3) {
+                    newGeneration[col][row].cellState = 1;
+                } else if (currentCell.cellState === 1 && (neighbourCount < 2 || neighbourCount > 3)) {
+                    newGeneration[col][row].cellState = 0;
                 } else {
-                    newGeneration[col][row] = currentCell
+                    newGeneration[col][row].cellState = currentCell.cellState;
                 }
             }
         }
@@ -112,7 +127,7 @@ export default class Grid {
                 // Draw Board
                 this.renderingContext.beginPath();
                 this.renderingContext.rect(col * this.cellSize, row * this.cellSize, this.cellSize, this.cellSize);
-                this.renderingContext.fillStyle = this.grid[col][row] ? "#000000" : "#ffffff"
+                this.renderingContext.fillStyle = this.grid[col][row].cellState ? "#000000" : "#ffffff"
                 this.renderingContext.fill();
                 this.renderingContext.stroke();
                 this.renderingContext.closePath();

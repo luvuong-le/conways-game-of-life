@@ -2,12 +2,20 @@ import Grid from './Grid';
 
 export default class Game {
 
-    canvas: HTMLCanvasElement;
-    grid: Grid
+    private _canvas: HTMLCanvasElement;
+    private _grid: Grid
 
     constructor(canvas: HTMLCanvasElement, grid: Grid) {
-        this.canvas = canvas;
-        this.grid = grid;
+        this._canvas = canvas;
+        this._grid = grid;
+    }
+
+    public get grid() {
+        return this._grid;
+    }
+
+    public get canvas() {
+        return this._canvas;
     }
 
     startGame() {
