@@ -11,9 +11,38 @@
 
 <body>
     <header>
-        <h1 class="heading heading--primary">Conway's Game of Life</h1>
-        <div class="options"></div>
+        <h1 class="heading heading--primary text-red-500">Conway's Game of Life</h1>
     </header>
+    <main class="game">
+        <div class="game__display">
+            <h1 class="text-xl font-bold">Iteration Count: <span id="iterationCountDisplay">0</span></h1>
+        </div>
+        <div class="game__config">
+            <span class="text-xl">Game Configurations</span>
+            <div class="game__options">
+                <div class="option">
+                    <h3>Set Iteration</h3>
+                    <input type="number" name="iteration" id="iterationCountInput"
+                        class="shadow appearance-none border rounded w-half py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div class="option">
+                    <h3>Set Cell Color</h3>
+                    <input type="text" name="iteration" id="iterationCountInput"
+                        class="shadow appearance-none border rounded w-half py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div class="option">
+                    <h3>Set Theme</h3>
+                    <input type="text" name="iteration" id="iterationCountInput"
+                        class="shadow appearance-none border rounded w-half py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div class="option">
+                    <h3>Timer</h3>
+                    <input type="text" name="iteration" id="iterationCountInput"
+                        class="shadow appearance-none border rounded w-half py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+            </div>
+        </div>
+    </main>
     <canvas id="canvas"></canvas>
     <script src="./ts/index.ts"></script>
 </body>

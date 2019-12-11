@@ -131,6 +131,7 @@ export default class Grid {
                 this.renderingContext.beginPath();
                 this.renderingContext.rect(col * this.cellSize, row * this.cellSize, this.cellSize, this.cellSize);
                 this.renderingContext.fillStyle = this.grid[col][row].cellState ? (this.grid[col][row].cellColor ? this.grid[col][row].cellColor : "#000000") : "#ffffff"
+                this.renderingContext.strokeStyle = this.grid[col][row].cellState ? randomColor() : "#ffffff";
                 this.renderingContext.fill();
                 this.renderingContext.stroke();
                 this.renderingContext.closePath();

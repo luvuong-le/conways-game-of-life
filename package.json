@@ -7,7 +7,7 @@
   "scripts": {
     "start": "parcel src/index.html",
     "watch": "parcel watch src/ts/index.ts",
-    "build": "parcel build src/ts/index.ts"
+    "build": "parcel build src/index.html"
   },
   "devDependencies": {
     "cross-env": "^6.0.3",
@@ -16,6 +16,9 @@
     "typescript": "^3.7.3"
   },
   "dependencies": {
-    "randomcolor": "^0.5.4"
+    "@types/randomcolor": "^0.5.3",
+    "autoprefixer": "^9.7.3",
+    "randomcolor": "^0.5.4",
+    "tailwindcss": "^1.1.4"
   }
 }

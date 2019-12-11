@@ -12,13 +12,13 @@ Implementation of Conway's Game of Life with TypeScript
 
 ### Tech Stack
 
-| Technology | Description                                                                           | Link ↘️                 |
-| ---------- | ------------------------------------------------------------------------------------- | ----------------------- |
-| HTML5      | Hyper Text Markup Language                                                            | ----                    |
-| CSS3       | Cascading Style Sheets                                                                | ----                    |
-| JavaScript | High Level, Dynamic, Interpreted Language                                             | ----                    |
-| SASS       | Syntactically Awesome Style Sheets                                                    | https://sass-lang.com/  |
-| TypeScript       | Superset of JavaScript                                                                     | https://www.typescriptlang.org/ |
+| Technology | Description                               | Link ↘️                          |
+|------------|-------------------------------------------|---------------------------------|
+| HTML5      | Hyper Text Markup Language                | ----                            |
+| CSS3       | Cascading Style Sheets                    | ----                            |
+| JavaScript | High Level, Dynamic, Interpreted Language | ----                            |
+| SASS       | Syntactically Awesome Style Sheets        | https://sass-lang.com/          |
+| TypeScript | Superset of JavaScript                    | https://www.typescriptlang.org/ |
 
 ### Running the Game
 
@@ -42,11 +42,11 @@ The game should now be running at [localhost:1234](http://localhost:1234/)
 
 ### Features / Ideas To Do
 
-| Key        | Meaning           |
-| ------------- |:-------------| 
-| ✔️      | Feature Complete | 
-| ✖️     | Feature Incomplete | 
-| ❓ | Feature Idea  | 
+| Key | Meaning            |
+|-----|:-------------------|
+| ✔️   | Feature Complete   |
+| ✖️   | Feature Incomplete |
+| ❓   | Feature Idea       |
 
 
 - ✔️ Create Functional Game Of Life

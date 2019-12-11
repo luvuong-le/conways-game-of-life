@@ -1,6 +1,6 @@
 export default class Cell {
     private _state: number;
-    _cellColor: string;
+    private _cellColor: string;
 
     constructor(cellColor: string) {
         this._state = Math.floor(Math.random() * 2)
