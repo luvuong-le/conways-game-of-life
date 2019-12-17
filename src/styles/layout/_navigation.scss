@@ -1,0 +1,13 @@
+.nav {
+
+    &__config {
+        display: flex;
+        justify-content: flex-end;
+        justify-items: flex-end;
+    }
+
+    &__icon {
+        margin: 1em 1em;
+        color: #ffffff;
+    }
+}

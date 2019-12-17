@@ -1,10 +1,17 @@
 import Grid from './Grid';
 import Game from './Game';
+import GameConfiguration from './types/GameConfiguration';
 
-const canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("canvas");
-canvas.width = 800;
-canvas.height = 800;
+const config: GameConfiguration = {
+    canvas: <HTMLCanvasElement>document.getElementById("canvas"),
+    canvasWidth: 700,
+    canvasHeight: 700,
+    iterationCount: <HTMLInputElement>document.getElementById("iterationCountInput"),
+    cellColorRandomiser: <HTMLInputElement>document.getElementById("cellColorInput"),
+    theme: <HTMLInputElement>document.getElementById("themeInput"),
+    timerEnabled: <HTMLInputElement>document.getElementById("timerInput"),
+};
 
-const game = new Game(canvas, new Grid(<CanvasRenderingContext2D>canvas.getContext("2d")));
+const gameOfLife: Game = new Game(config);
 
-game.startGame();
+gameOfLife.setEventListeners();

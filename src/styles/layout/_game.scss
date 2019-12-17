@@ -1,0 +1,45 @@
+.game {
+    &__display {
+        width: 100%;
+        height: 300px;
+        position: absolute;
+        bottom: 0;
+        background: rgba(0,0,0, 0.7);
+        text-align: center;
+
+        &-info {
+            margin-top: 1em;
+        }
+    }
+
+    &__actions {
+        text-align: center;
+        margin: 1em 0 2em 0;
+    }
+
+    &__config {
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: rgba(0,0,0, 0.3);
+    }
+
+    &__options {
+        height: 100vh;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr) );
+        align-content: flex-start;
+        align-items: flex-start;
+        justify-content: center;
+        justify-items: center;
+        margin-top: 3rem;
+
+        padding: 0 2rem;
+    }
+}
+
+/* Game Options */
+.option {
+    margin: 1rem 0;
+}

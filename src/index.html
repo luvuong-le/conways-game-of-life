@@ -5,40 +5,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./styles/base.scss">
+    <link rel="stylesheet" href="./styles/main.scss">
     <title>TS Conway's Game of Life</title>
 </head>
 
 <body>
-    <header>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav__config">
+                <img class="nav__icon" src="./assets/iconmonstr-gear-1.svg" alt="Config Gear">
+            </div>
+        </nav>
         <h1 class="heading heading--primary text-red-500">Conway's Game of Life</h1>
     </header>
     <main class="game">
+        <div class="game__actions">
+            <button id="startBtn"
+                class="text-white uppercase text-lg border-2 py-2 px-4 btn btn--primary mx-4">Start</button>
+            <button id="stopBtn"
+                class="text-white uppercase text-lg border-2 py-2 px-4 btn btn--primary mx-4">Stop</button>
+            <button id="resetBtn"
+                class="text-white uppercase text-lg border-2 py-2 px-4 btn btn--primary mx-4">Reset</button>
+        </div>
         <div class="game__display">
-            <h1 class="text-xl font-bold">Iteration Count: <span id="iterationCountDisplay">0</span></h1>
+            <div class="game__display-info">
+                <h1 class="text-xl text-white uppercase">Iteration Number: <span id="iterationCountDisplay"
+                        class="text-xl text-white uppercase">0</span></h1>
+                <h1 class="text-xl text-white uppercase">Cells Dead: <span id="iterationCountDisplay"
+                        class="text-xl text-white uppercase">0</span></h1>
+                <h1 class="text-xl text-white uppercase">Game Running: <span id="iterationCountDisplay"
+                        class="text-xl text-white uppercase">False</span></h1>
+                <h1 class="text-xl text-white uppercase">Cell Color Randomiser: <span id="iterationCountDisplay"
+                        class="text-xl text-white uppercase">False</span></h1>
+                <h1 class="text-xl text-white uppercase">Theme: <span id="iterationCountDisplay"
+                        class="text-xl text-white uppercase">Dark</span></h1>
+                <h1 class="text-xl text-white uppercase">Timer Enabled: <span id="iterationCountDisplay"
+                        class="text-xl text-white uppercase">False</span></h1>
+            </div>
         </div>
         <div class="game__config">
-            <span class="text-xl">Game Configurations</span>
             <div class="game__options">
-                <div class="option">
-                    <h3>Set Iteration</h3>
+                <div class="option inline-block relative w-64">
+                    <h3 class="text-white uppercase">Set Iteration Limit</h3>
                     <input type="number" name="iteration" id="iterationCountInput"
-                        class="shadow appearance-none border rounded w-half py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        min="0" value="0">
                 </div>
-                <div class="option">
-                    <h3>Set Cell Color</h3>
-                    <input type="text" name="iteration" id="iterationCountInput"
-                        class="shadow appearance-none border rounded w-half py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <div class="option inline-block relative w-64">
+                    <h3 class="text-white uppercase">Set Cell Color Randomiser</h3>
+                    <select id="cellColorInput"
+                        class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                        <option>False</option>
+                        <option>True</option>
+                    </select>
                 </div>
-                <div class="option">
-                    <h3>Set Theme</h3>
-                    <input type="text" name="iteration" id="iterationCountInput"
-                        class="shadow appearance-none border rounded w-half py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <div class="option inline-block relative w-64">
+                    <h3 class="text-white uppercase">Set Theme</h3>
+                    <select id="themeInput"
+                        class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                        <option>Dark</option>
+                        <option>Material</option>
+                    </select>
                 </div>
-                <div class="option">
-                    <h3>Timer</h3>
-                    <input type="text" name="iteration" id="iterationCountInput"
-                        class="shadow appearance-none border rounded w-half py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <div class="option inline-block relative w-64">
+                    <h3 class="text-white uppercase">Timer</h3>
+                    <select id="timerInput"
+                        class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                        <option>False</option>
+                        <option>True</option>
+                    </select>
                 </div>
             </div>
         </div>

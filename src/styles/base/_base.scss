@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: 'PT Sans', sans-serif;
+    background: #000000;
+}
+
+header {
+    text-align: center;
+    margin: 0 0 2rem 0;
+}
+
+.heading {
+    font-size: 1.6rem;
+    flex-grow: 1;
+
+    &--primary {
+        @include respond(phone) {
+            font-size: 1.5rem;
+        }
+
+        font-size: 3rem;
+        color: #ffffff;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: .3em;
+    }
+}
