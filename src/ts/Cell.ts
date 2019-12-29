@@ -2,7 +2,7 @@ export default class Cell {
     private _state: number;
     private _cellColor: string;
 
-    constructor(cellColor: string) {
+    constructor(cellColor: string | null) {
         this._state = Math.floor(Math.random() * 2)
         this._cellColor = cellColor || "#000000";
     }

@@ -1,4 +1,3 @@
-import Grid from './Grid';
 import Game from './Game';
 import GameConfiguration from './types/GameConfiguration';
 

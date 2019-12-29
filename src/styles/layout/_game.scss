@@ -6,6 +6,7 @@
         bottom: 0;
         background: rgba(0,0,0, 0.7);
         text-align: center;
+        transition: transform .5s ease;
 
         &-info {
             margin-top: 1em;
@@ -23,12 +24,13 @@
         top: 0;
         left: 0;
         background: rgba(0,0,0, 0.3);
+        transition: transform .5s ease;
     }
 
     &__options {
         height: 100vh;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr) );
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         align-content: flex-start;
         align-items: flex-start;
         justify-content: center;
@@ -36,6 +38,8 @@
         margin-top: 3rem;
 
         padding: 0 2rem;
+
+        cursor: pointer;
     }
 }
 

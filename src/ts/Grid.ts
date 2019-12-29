@@ -6,6 +6,7 @@ export default class Grid {
     private _gridColSize: number;
     private _gridRowSize: number;
     private _gridCellSize: number;
+    private _cellsDead: number;
     private _renderingContext: CanvasRenderingContext2D;
 
     // Multidimensional Array Board => [cols][rows] / [y][x]
@@ -32,6 +33,14 @@ export default class Grid {
         return this._renderingContext;
     }
 
+    public get cellsDead(): number {
+        return this._cellsDead;
+    }
+
+    public set cellsDead(cellsDead: number) {
+        this._cellsDead = cellsDead;
+    }
+
     // Mutators
     public set grid(newBoard: Cell[][]) {
         this._grid = newBoard;
@@ -40,14 +49,14 @@ export default class Grid {
     /**
      * @param {CanvasRenderingContext2D} renderingContext
      */
-    constructor(renderingContext: CanvasRenderingContext2D) {
+    constructor(renderingContext: CanvasRenderingContext2D, randomiser: boolean) {
         this._renderingContext = renderingContext
         this._gridCellSize = 10;
-
+        this._cellsDead = 0;
         this._gridColSize = renderingContext.canvas.width / this._gridCellSize;
         this._gridRowSize = renderingContext.canvas.height / this._gridCellSize;
 
-        this._grid = new Array(this.columns).fill(null).map(_ => new Array(this.rows).fill(null).map(_ => new Cell(randomColor())));
+        this._grid = new Array(this.columns).fill(null).map(_ => new Array(this.rows).fill(null).map(_ => new Cell((randomiser ? randomColor() : null))));
     }
     /**
      * @description Get the surrounding neighbours of the current cell
@@ -109,6 +118,7 @@ export default class Grid {
                     newGeneration[col][row].cellState = 1;
                 } else if (currentCell.cellState === 1 && (neighbourCount < 2 || neighbourCount > 3)) {
                     newGeneration[col][row].cellState = 0;
+                    this.cellsDead++;
                 } else {
                     newGeneration[col][row].cellState = currentCell.cellState;
                 }
@@ -129,7 +139,7 @@ export default class Grid {
             for (let row = 0; row < this.rows; row++) {
                 // Draw Board
                 this.renderingContext.beginPath();
-                this.renderingContext.strokeRect(col * this.cellSize, row * this.cellSize, this.cellSize, this.cellSize);
+                this.renderingContext.fillRect(col * this.cellSize, row * this.cellSize, this.cellSize, this.cellSize);
                 this.renderingContext.fillStyle = this.grid[col][row].cellState ? (this.grid[col][row].cellColor ? this.grid[col][row].cellColor : "#000000") : "#ffffff"
                 this.renderingContext.strokeStyle = this.grid[col][row].cellState ? randomColor() : "#ffffff";
                 this.renderingContext.fill();
@@ -137,6 +147,15 @@ export default class Grid {
                 this.renderingContext.closePath();
             }
         }
+    }
+
+    updateCellColors(random: boolean) {
+        for (let col = 0; col < this.columns; col++) {
+            for (let row = 0; row < this.rows; row++) {
+                this.grid[col][row].cellColor = random ? randomColor() : "#000000";
+            }
+        }
+        this.renderBoard();
     }
 
     updateBoard = (): void => {
