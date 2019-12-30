@@ -4,24 +4,24 @@ import GameConfiguration from './types/GameConfiguration';
 export default class Game {
 
     // Input Elements
-    private iterationInput: HTMLElement;
-    private startBtn: HTMLElement;
-    private resetBtn: HTMLElement;
-    private stopBtn: HTMLElement;
-    private cellColorInput: HTMLElement;
-    private configIcon: HTMLElement;
-    private displayToggleIcon: HTMLElement;
+    private iterationInput!: HTMLElement;
+    private startBtn!: HTMLElement;
+    private resetBtn!: HTMLElement;
+    private stopBtn!: HTMLElement;
+    private cellColorInput!: HTMLElement;
+    private configIcon!: HTMLElement;
+    private displayToggleIcon!: HTMLElement;
 
     private _canvas: HTMLCanvasElement;
 
     // Display Elements
-    private iterationCountDisplay: HTMLElement;
-    private cellColorRandomiserDisplay: HTMLElement;
-    private gameRunningDisplay: HTMLElement;
-    private cellsDeadDisplay: HTMLElement;
-    private toast: HTMLElement;
-    private gameConfiguration: HTMLElement;
-    private gameDisplay: HTMLElement;
+    private iterationCountDisplay!: HTMLElement;
+    private cellColorRandomiserDisplay!: HTMLElement;
+    private gameRunningDisplay!: HTMLElement;
+    private cellsDeadDisplay!: HTMLElement;
+    private toast!: HTMLElement;
+    private gameConfiguration!: HTMLElement;
+    private gameDisplay!: HTMLElement;
 
     // Game Instance Variables
     private _grid: Grid
@@ -44,12 +44,10 @@ export default class Game {
         this._gameConfig = config;
         this._animationFrame = 0;
 
-        this.cellColorInput = null;
-
-        // Set Element Nodes
+        /** Set Element Nodes */
         this.getElementNodes();
 
-        this._grid = new Grid(<CanvasRenderingContext2D>this._canvas.getContext("2d"), (this.cellColorInput.value === "true"));
+        this._grid = new Grid(<CanvasRenderingContext2D>this._canvas.getContext("2d"), ((<HTMLInputElement>this.cellColorInput).value === "true"));
 
         this.grid.renderBoard();
 
@@ -107,22 +105,21 @@ export default class Game {
     setEventListeners = () => {
         /** Iteration Event */
         this.iterationInput.addEventListener("change", e => {
-            if (!this.running) {
-                if (e.target instanceof HTMLInputElement) {
-                    this.iteration = 1;
-                    this.iterationTotal = parseInt(e.target.value);
-                    this.showToast("success", `Iteration Count set to ${e.target.value}`);
-                }
-            } else {
-                this.showToast("error", "Game is already running. Please stop the game first.");
-                console.warn("Game is already running. Please stop the game first.")
-            }
+            if (this.running) return this.showToast("error", "Game is already running. Please stop the game first.");
 
+            if (e.target instanceof HTMLInputElement) {
+                if (isNaN(parseInt(e.target.value))) return this.showToast("error", "Iteration count must have a value greater than or equal to 0");
+
+                this.iteration = 1;
+                this.iterationTotal = parseInt(e.target.value);
+                this.showToast("success", `Iteration Count set to ${e.target.value}`);
+            }
         });
 
         /** Cell Color Randomiser Event */
-        this.cellColorInput.addEventListener("change", e => {
+        this.cellColorInput.addEventListener("change", (e: any) => {
             this.showToast("success", e.target.value === "true" ? `Cell Color Randomiser On` : `Cell Color Randomiser Off`);
+
             return e.target.value === "true" ? this.grid.updateCellColors(true) : this.grid.updateCellColors(false);
         })
 
@@ -135,17 +132,17 @@ export default class Game {
         /** Reset Event */
         this.resetBtn.addEventListener("click", this.resetGame);
 
-        /** Config Event */
-        this.configIcon.addEventListener("click", this.toggleGameConfigPanel);
+        /** Game Configuration Click Event */
+        this.configIcon.addEventListener("click", () => this.togglePanel(this.configIcon, this.gameConfiguration, { hidden: "translateX(-100%)", visible: "translateX(0)" }));
 
-        /** Display Event */
-        this.displayToggleIcon.addEventListener("click", this.toggleGameDisplayPanel);
+        /** Game Display Click Event */
+        this.displayToggleIcon.addEventListener("click", () => this.togglePanel(this.displayToggleIcon, this.gameDisplay, { hidden: "scale(0)", visible: "scale(1)" }));
     }
 
     updateDisplay = () => {
         this.gameRunningDisplay.textContent = this.running ? "True" : "False";
         this.iterationCountDisplay.textContent = this.iteration.toString();
-        this.cellColorRandomiserDisplay.textContent = this.cellColorInput.value === "false" ? "False" : "True";
+        this.cellColorRandomiserDisplay.textContent = (<HTMLInputElement>this.cellColorInput).value === "false" ? "False" : "True";
         this.cellsDeadDisplay.textContent = this.grid.cellsDead.toString();
 
         this.iteration++;
@@ -160,55 +157,55 @@ export default class Game {
                 this.requestAnimFrame = requestAnimationFrame(this.updateIteration.bind(this, startMode));
             } else {
                 this.running = false;
+                this.iteration = 0;
             }
         } else {
+
             this.requestAnimFrame = requestAnimationFrame(this.updateIteration.bind(this, startMode));
         }
 
     }
 
     startIterations = (startMode: boolean): void => {
+        startMode ? this.showToast("success", `Iteration Count Detected. Starting game with iteration rounds of ${this.iterationTotal}`) : this.showToast("success", `Iteration Count Not Detected. Starting game with continuous iterations`);
         this.requestAnimFrame = requestAnimationFrame(this.updateIteration.bind(this, startMode));
     }
 
     startGame = (): void => {
+        if (this.running) return this.showToast("error", "Game already running. Please stop the game first");
+
         if (!this.running) {
+            this.resetGame();
             this.running = true;
             this.showToast("success", "Game Started");
-            if (this.iterationTotal === 0) {
-                return this.startIterations(false);
-            }
-            return this.startIterations(true);
-        } else {
-            this.showToast("error", "Game is already running. Please stop the game first.");
-            console.warn("Game is already running. Please stop the game first.")
+            return this.iterationTotal === 0 ? this.startIterations(false) : this.startIterations(true);
         }
-
     }
 
     stopGame = (): void => {
+        if (!this.running) return this.showToast("error", "Game is not currently running. Please start the game first");
+
         if (this.running) {
             cancelAnimationFrame(this.requestAnimFrame);
             this.running = false;
-            this.showToast("success", "Game stopped");
+            this.showToast("success", "Game Stopped");
             this.updateDisplay();
         }
     }
 
     resetGame = (): void => {
+        if (this.running) return this.showToast("error", "Game already running. Please stop the game first");
+
         if (!this.running) {
             this.iteration = 0;
-            this.iterationInput.value = 0;
-            this.cellColorInput.value = "false";
+            (<HTMLInputElement>this.iterationInput).value = "0";
+            (<HTMLInputElement>this.cellColorInput).value = "false";
             this.iterationCountDisplay.textContent = "0";
             this.cellColorRandomiserDisplay.textContent = "false";
-            this.grid = new Grid(<CanvasRenderingContext2D>this._canvas.getContext("2d"), (this.cellColorInput.value === "true"));
+            this.grid = new Grid(<CanvasRenderingContext2D>this._canvas.getContext("2d"), ((<HTMLInputElement>this.cellColorInput).value === "true"));
             this.grid.renderBoard();
             this.updateDisplay();
-            this.showToast("success", "Game Reset.");
-        } else {
-            this.showToast("error", "Game is already running. Please stop the game first.");
-            console.warn("Game is already running. Please stop the game first.")
+            this.showToast("success", "Game Reset");
         }
     }
 
@@ -223,23 +220,13 @@ export default class Game {
         }, 2000);
     }
 
-    toggleGameConfigPanel = (): void => {
-        if (this.configIcon.dataset.visibility === "true") {
-            this.gameConfiguration.style.transform = "translateX(-100%)";
-            this.configIcon.dataset.visibility = "false";
+    togglePanel = (icon: HTMLElement, e: HTMLElement, style: { hidden: string, visible: string }): void => {
+        if (icon.dataset.visibility === "true") {
+            e.style.transform = style.hidden;
+            icon.dataset.visibility = "false";
         } else {
-            this.gameConfiguration.style.transform = "translateX(0)";
-            this.configIcon.dataset.visibility = "true";
-        }
-    }
-
-    toggleGameDisplayPanel = (): void => {
-        if (this.displayToggleIcon.dataset.visibility === "true") {
-            this.gameDisplay.style.transform = "translateY(100%)";
-            this.displayToggleIcon.dataset.visibility = "false";
-        } else {
-            this.gameDisplay.style.transform = "translateY(0)";
-            this.displayToggleIcon.dataset.visibility = "true";
+            e.style.transform = style.visible;
+            icon.dataset.visibility = "true";
         }
     }
 

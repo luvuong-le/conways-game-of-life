@@ -14,13 +14,13 @@
     <header class="header">
         <nav class="nav">
             <div class="nav__config">
-                <img id="configIcon" data-visibility="true" class="nav__icon" src="./assets/iconmonstr-gear-1.svg"
+                <img id="configIcon" data-visibility="false" class="nav__icon" src="./assets/iconmonstr-gear-1.svg"
                     alt="Config Gear Icon">
-                <img id="displayToggleIcon" data-visibility="true" class="nav__icon"
+                <img id="displayToggleIcon" data-visibility="false" class="nav__icon"
                     src="./assets/iconmonstr-television-8.svg" alt="Display Toggle Icon">
             </div>
         </nav>
-        <h1 class="heading heading--primary text-red-500">Conway's Game of Life</h1>
+        <h1 class="heading heading--primary">Conway's Game of Life</h1>
     </header>
     <main class="game">
         <div class="game__actions">
@@ -33,14 +33,16 @@
         </div>
         <div id="gameDisplay" class="game__display">
             <div class="game__display-info">
-                <h1 class="text-xl text-white uppercase">Iteration Number: <span id="iterationCountDisplay"
-                        class="text-xl text-white uppercase">0</span></h1>
-                <h1 class="text-xl text-white uppercase">Cells Dead: <span id="cellsDeadDisplay"
-                        class="text-xl text-white uppercase">0</span></h1>
-                <h1 class="text-xl text-white uppercase">Game Running: <span id="gameRunningDisplay"
-                        class="text-xl text-white uppercase">False</span></h1>
-                <h1 class="text-xl text-white uppercase">Cell Color Randomiser: <span id="cellColorRandomiserDisplay"
-                        class="text-xl text-white uppercase">False</span></h1>
+                <h1 class="text-xl text-white uppercase font-bold py-2">Iteration Number: <span
+                        id="iterationCountDisplay"
+                        class="text-xl text-white uppercase bg-blue-600 rounded p-1 font-bold">0</span></h1>
+                <h1 class="text-xl text-white uppercase font-bold py-2">Cells Dead: <span id="cellsDeadDisplay"
+                        class="text-xl text-white uppercase bg-red-600 rounded p-1 font-bold">0</span></h1>
+                <h1 class="text-xl text-white uppercase font-bold py-2">Game Running: <span id="gameRunningDisplay"
+                        class="text-xl text-white uppercase bg-teal-600 rounded p-1 font-bold">False</span></h1>
+                <h1 class="text-xl text-white uppercase font-bold py-2">Cell Color Randomiser: <span
+                        id="cellColorRandomiserDisplay"
+                        class="text-xl text-white uppercase bg-orange-600 rounded p-1 font-bold">False</span></h1>
             </div>
         </div>
         <div id="gameConfiguration" class="game__config">

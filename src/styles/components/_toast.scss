@@ -1,11 +1,12 @@
 .toast {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 2%;
+    left: 50%;
     z-index: 999;
     padding: 1rem;
     border-radius: .25rem;
     margin: 1rem;
+    transform: translate(-50%, -50%);
 
     &--error {
         background: #fcbfc4;
