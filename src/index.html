@@ -14,10 +14,13 @@
     <header class="header">
         <nav class="nav">
             <div class="nav__config">
-                <img id="configIcon" data-visibility="true" class="nav__icon" src="./assets/iconmonstr-gear-1.svg"
+                <img id="configIcon" data-visibility="false" class="nav__icon" src="./assets/iconmonstr-gear-1.svg"
                     alt="Config Gear Icon">
-                <img id="displayToggleIcon" data-visibility="true" class="nav__icon"
+                <img id="displayToggleIcon" data-visibility="false" class="nav__icon"
                     src="./assets/iconmonstr-television-8.svg" alt="Display Toggle Icon">
+                <a href="https://github.com/luvuong-le/conways-game-of-life">
+                    <img class="nav__icon" src="./assets/iconmonstr-github-1.svg" alt="Github Icon">
+                </a>
             </div>
         </nav>
         <h1 class="heading heading--primary">Conway's Game of Life</h1>
@@ -47,6 +50,11 @@
         </div>
         <div id="gameConfiguration" class="game__config">
             <div class="game__options">
+                <div class="game__options-close">
+                    <button id="closeConfigBtn"
+                        class="text-white uppercase text-lg border-2 py-2 px-4 btn btn--primary mx-4">Close
+                        Config</button>
+                </div>
                 <div class="option inline-block relative w-64">
                     <h3 class="text-white uppercase">Set Iteration Limit</h3>
                     <input type="number" name="iteration" id="iterationCountInput"
@@ -63,8 +71,10 @@
                 </div>
             </div>
         </div>
+        <div class="canvas">
+            <canvas id="canvas"></canvas>
+        </div>
     </main>
-    <canvas id="canvas"></canvas>
     <script src="./ts/index.ts"></script>
 </body>
 

@@ -1,4 +1,6 @@
 .game {
+    position: relative;
+
     &__display {
         width: 100%;
         height: 300px;
@@ -6,7 +8,7 @@
         bottom: 0;
         background: rgba(0,0,0, 0.7);
         text-align: center;
-        transform: scale(1);
+        transform: scale(0);
         transition: transform .5s ease;
 
         &-info {
@@ -20,12 +22,12 @@
     }
 
     &__config {
-        height: 100vh;
+        height: 100%;
         position: absolute;
         top: 0;
         left: 0;
-        background: rgba(0,0,0, 0.3);
-        transform: translateX(0);
+        background: rgba(0,0,0, 0.7);
+        transform: translateX(-100%);
         transition: transform .5s ease;
     }
 

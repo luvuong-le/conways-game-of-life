@@ -11,6 +11,7 @@ export default class Game {
     private cellColorInput!: HTMLElement;
     private configIcon!: HTMLElement;
     private displayToggleIcon!: HTMLElement;
+    private closeConfigBtn!: HTMLElement;
 
     private _canvas: HTMLCanvasElement;
 
@@ -135,6 +136,8 @@ export default class Game {
         /** Game Configuration Click Event */
         this.configIcon.addEventListener("click", () => this.togglePanel(this.configIcon, this.gameConfiguration, { hidden: "translateX(-100%)", visible: "translateX(0)" }));
 
+        this.closeConfigBtn.addEventListener("click", () => this.togglePanel(this.configIcon, this.gameConfiguration, { hidden: "translateX(-100%)", visible: "translateX(0)" }));
+
         /** Game Display Click Event */
         this.displayToggleIcon.addEventListener("click", () => this.togglePanel(this.displayToggleIcon, this.gameDisplay, { hidden: "scale(0)", visible: "scale(1)" }));
     }
@@ -246,5 +249,6 @@ export default class Game {
         this.resetBtn = <HTMLElement>document.getElementById("resetBtn");
         this.configIcon = <HTMLElement>document.getElementById("configIcon");
         this.displayToggleIcon = <HTMLElement>document.getElementById("displayToggleIcon");
+        this.closeConfigBtn = <HTMLElement>document.getElementById("closeConfigBtn");
     }
 }

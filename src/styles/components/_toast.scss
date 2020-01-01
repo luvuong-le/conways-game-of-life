@@ -1,12 +1,21 @@
 .toast {
+    display: inline-block;
     position: absolute;
     top: 2%;
     left: 50%;
-    z-index: 999;
+    z-index: 1;
     padding: 1rem;
     border-radius: .25rem;
     margin: 1rem;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0%);
+
+    @include respond(phone) {
+        top: 0;
+        left: 0;
+        transform: translate(0%, 0%);
+        margin: 1rem 0;
+        width: 100%;
+    }
 
     &--error {
         background: #fcbfc4;

@@ -1,4 +1,6 @@
 .nav {
+    z-index: 3;
+
     &__config {
         display: flex;
         justify-content: flex-end;
@@ -6,6 +8,7 @@
     }
 
     &__icon {
+        z-index: 3;
         margin: 1em 1em;
         color: #ffffff;
         cursor: pointer;
